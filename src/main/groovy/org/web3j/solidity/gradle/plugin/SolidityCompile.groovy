@@ -149,6 +149,9 @@ class SolidityCompile extends SourceTask {
             }
 
             if (evmVersion != null && supportsEvmVersionOption(compilerVersion)) {
+                if(isSolidityVersion4(compilerVersion) && getEvmVersion() != EVMVersion.BYZANTIUM) {
+                    setEvmVersion(EVMVersion.BYZANTIUM);
+                }
                 options.add("--evm-version")
                 options.add(evmVersion.value)
             }
@@ -200,6 +203,10 @@ class SolidityCompile extends SourceTask {
 
     static boolean supportsEvmVersionOption(String version) {
         return version.split('\\.').last().toInteger() >= 24 || version.split('\\.')[1].toInteger() > 4
+    }
+
+    static boolean isSolidityVersion4(String version) {
+        return version.split('\\.')[1].toInteger() == 4;
     }
 
     Boolean getOverwrite() {

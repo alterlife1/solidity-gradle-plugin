@@ -26,7 +26,7 @@ import groovy.transform.Memoized
 @Singleton
 class ImportsResolver {
 
-    private Set<String> PROVIDERS = ["@openzeppelin/contracts", "@uniswap/lib"]
+    private Set<String> PROVIDERS = ["@openzeppelin/contracts", "@openzeppelin/contracts-upgradeable", "@uniswap/lib"]
 
     /**
      * Looks for external imports in Solidity files, eg:
