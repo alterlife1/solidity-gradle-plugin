@@ -143,6 +143,7 @@ class SolidityPlugin implements Plugin<Project> {
         resolveSolidity.description = "Resolve external Solidity contract modules."
         resolveSolidity.allowPaths = target.solidity.allowPaths
         resolveSolidity.onlyIf { target.solidity.resolvePackages }
+        resolveSolidity.outputs.upToDateWhen { false }
 
         def packageJson = new File(nodeProjectDir.asFile.get(), "package.json")
         resolveSolidity.packageJson = packageJson

@@ -34,9 +34,14 @@ class SolidityResolve extends DefaultTask {
 
         for (def contract in sources) {
             def imports = ImportsResolver.instance.resolveImports(contract, nodeProjectDir)
-            for (provider in imports.keySet()) {
-                libraries.add(provider)
-                allowPaths.add("$nodeProjectDir.path/node_modules/$provider")
+            for (provider in imports) {
+                String key = provider.getKey();
+                libraries.add(key)
+                allowPaths.add("$nodeProjectDir.path/node_modules/$key")
+
+                if(!project.solidity.pathRemappings.containsKey(key)) {
+                    project.solidity.pathRemappings.put(key, imports.get(key))
+                }
             }
         }
 
